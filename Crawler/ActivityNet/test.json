@@ -1,0 +1,80 @@
+{
+  "taxonomy": [
+    {
+      "nodeId": 0,
+      "nodeName": "Root",
+      "parentId": null,
+      "parentName": null
+    },
+    {
+      "nodeId": 1,
+      "nodeName": "Parent 1",
+      "parentId": 0,
+      "parentName": "Root"
+    },
+    {
+      "nodeId": 2,
+      "nodeName": "Parent 2",
+      "parentId": 0,
+      "parentName": "Root"
+    },
+    {
+      "nodeId": 21,
+      "nodeName": "Child of Parent 2",
+      "parentId": 2,
+      "parentName": "Parent 2"
+    }
+  ],
+  "database": {
+    "---9CpRcKoU": {
+      "annotations": [
+        {
+          "label": "Parent 2",
+          "segment": [
+            2, 10
+          ]
+        },
+        {
+          "label": "Child of Parent 2",
+          "segment": [
+            3.1, 5.2
+          ]
+        }
+      ],
+      "duration": 14.07,
+      "resolution": "320x240",
+      "subset": "training",
+      "url": "https://www.youtube.com/watch?v=---9CpRcKoU"
+    },
+    "--1DO2V4K74": {
+      "annotations": [
+        {
+          "label": "Parent 1",
+          "segment": [
+            30.025882995319815,
+            205.2318595943838
+          ]
+        }
+      ],
+      "duration": 211.53,
+      "resolution": "640x480",
+      "subset": "validation",
+      "url": "https://www.youtube.com/watch?v=--1DO2V4K74"
+    },
+    "--tFD65KaK4": {
+      "annotations": [],
+      "duration": 86.425,
+      "resolution": "853x480",
+      "subset": "testing",
+      "url": "https://www.youtube.com/watch?v=--tFD65KaK4"
+    },
+    "-----------": {
+      "annotations": [],
+      "duration": 72.24,
+      "resolution": "480x360",
+      "subset": "testing",
+      "url": "https://www.youtube.com/watch?v=-----------"
+    }
+
+  }
+}
