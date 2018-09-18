@@ -24,7 +24,7 @@ def construct_path_to_video(id, subset, annotation=None):
     return os.path.join(path, basename)
 
 
-def download_whole_file(id, url, tmp_dir='/tmp/ActivityNet',
+def download_whole_file(id, url, tmp_dir='tmp',
                         num_attempts=3):
     # Construct command line for getting the direct video link.
     tmp_filename = os.path.join(tmp_dir, '{}.mp4'.format(uuid.uuid4()))
@@ -127,15 +127,15 @@ def download_clip_wrapper(id, infos, output_dir, tmp_dir):
             try:
                 gen_trimmed_video(id, begin, end, tmp_filename, output_filename)
             except subprocess.CalledProcessError as err:
-                print('[{}] error occurred: {}'.format(id, str(err.output)))
                 return id, False, \
-                       '[trimming {}_annotation_{}] {}'.format(id, n, str(err))
+                       '[trimming {}_annotation_{}] {}'.format(
+                           id, n, err.output.decode())
             if not os.path.exists(output_filename):
                 return id, False, '[trimming {}_annotation_{}] cannot find ' \
                                   'the trimmed file ' \
                                   'for unknown reason'.format(id, n)
     try:
-        os.remove(tmp_filename)
+        os.remove(tmp_filename or '')
     except FileNotFoundError:
         pass
 
@@ -182,8 +182,9 @@ def prepare(input_json, output_dir):
 
 
 def main(input_json, output_dir, num_jobs=24, verbose=False,
-         tmp_dir='/tmp/ActivityNet'):
+         tmp_dir='tmp'):
     # Reading and parsing ActivityNet.
+    os.makedirs(tmp_dir, exist_ok=True)
     database = prepare(input_json, output_dir)
     if verbose:
         verbose = 10
