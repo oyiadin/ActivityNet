@@ -1,15 +1,11 @@
 import argparse
-import glob
 import json
 import os
 import shutil
 import subprocess
 import uuid
-from collections import OrderedDict
 
-from joblib import delayed
-from joblib import Parallel
-import pandas as pd
+from joblib import delayed, Parallel
 
 taxonomy = []
 label2id = {}
@@ -214,6 +210,6 @@ if __name__ == '__main__':
     p.add_argument('output_dir', type=str,
                    help='Output directory where videos will be saved.')
     p.add_argument('-n', '--num-jobs', type=int, default=24)
-    p.add_argument('-t', '--tmp-dir', type=str, default='/tmp/ActivityNet')
+    p.add_argument('-t', '--tmp-dir', type=str, default='tmp')
     p.add_argument('-v', '--verbose', type=bool, default=False)
     main(**vars(p.parse_args()))
