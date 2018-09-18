@@ -83,6 +83,7 @@ def gen_trimmed_video(id, begin, end, file_from, file_to):
 def download_clip_wrapper(id, infos, output_dir, tmp_dir):
     """Wrapper for parallel processing purposes.
        Returns ( video_id, status: bool, message )"""
+    tmp_filename = ''
     if infos['subset'] == 'testing':
         output_filename = os.path.join(
             output_dir, construct_path_to_video(id, 'testing'))
@@ -133,6 +134,10 @@ def download_clip_wrapper(id, infos, output_dir, tmp_dir):
                 return id, False, '[trimming {}_annotation_{}] cannot find ' \
                                   'the trimmed file ' \
                                   'for unknown reason'.format(id, n)
+    try:
+        os.remove(tmp_filename)
+    except FileNotFoundError:
+        pass
 
     return id, True, 'OK'
 
@@ -185,7 +190,7 @@ def main(input_json, output_dir, num_jobs=24, verbose=False,
 
     status_lst = Parallel(
         n_jobs=num_jobs,
-        backend='multiprocessing',
+        # backend='multiprocessing',
         verbose=verbose,
     )(delayed(download_clip_wrapper)(
         id, infos, output_dir, tmp_dir) for id, infos in database.items())
